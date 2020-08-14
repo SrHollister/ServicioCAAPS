@@ -1,0 +1,25 @@
+{% include "views/default/header.html" %}
+{% load i18n static %}
+
+<center><h1>Registrar Información de Domicilio del Paciente</h1></center>
+
+<div class="login">
+    <div id="container">
+        <div id="header" class="bg-info">
+            <h1>Teclee los datos correspondientes</h1>
+        </div>
+        <div id="content-main">
+            <form action="{{app_path}}" method="POST" id="login-form">
+                {% csrf_token %}
+                <table>{{ form}}</table>
+                <p class="errornote text-danger">
+                    {{ error }}
+                </p>
+                <div class="submit-row">
+                    <input type="submit" value="Registrar" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include "views/default/footer.html" %}

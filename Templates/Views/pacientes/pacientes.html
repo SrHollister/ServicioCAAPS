@@ -1,0 +1,128 @@
+{% include "views/default/header.html" %}
+
+<h1><a class="titulos" href="#">Listado: Pacientes Registrados del Servicio</a></h1>
+<br><br>
+<div class="container">
+
+    <div class="form-group">
+
+        <form role="{{app_path}}" method="POST">
+            {%csrf_token%}
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="filtrarpaciente" name="filtrarpaciente" type="text" class="form-control" style="width: 100%;"
+                    placeholder="Escriba CURP del Paciente" required />
+                </div>
+                <div class="col-md-1" style="margin-right: 200px;">
+                    <input class="btn btn-primary buscar" type="submit" value="Buscar Paciente">
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-success" href="{% url 'registrarpaciente' %}">Registrar Paciente</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        {% if pacientes_list %}
+        <table border="1" align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <!--<th>Fecha de Nacimiento</th>
+                <th>Peso (Kg)</th>
+                <th>Altura (m)</th>-->
+                <!--<th>CURP</th>-->
+                <th>Teléfono</th>
+                <th>Sexo</th>
+                <th>Estado Civil</th>
+            </tr>
+            {% for paciente in pacientes_list %}
+            <tr>
+                <td>{{paciente.Nombre_Pac}}</td>
+                <td>{{paciente.Apellidos_Pac}}</td>
+                <!--<td>{{paciente.FechaNac}}</td>
+                <td>{{paciente.Peso}}</td>
+                <td>{{paciente.Talla}}</td>
+                <td><a href="detailspac/{{paciente.CURP}}">{{paciente.CURP}}</a></td>-->
+                <td>{{paciente.Telefono}}</td>
+                <td>{{paciente.Sexo}}</td>
+                <td>{{paciente.Id_EdoCivil.Nombre_EdoCivil}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    {% else %}
+    <p>No hay Pacientes registrados con esos datos.</p>
+    <p>Favor de verificar</p>
+    <br>
+</div>
+    {% endif %}
+
+
+    {% if pacientes_list.has_next or pacientes_list.has_previous %}
+    <ul class="pagination">
+        {% if pacientes_list.has_previous %}
+        <li>
+            <a href="?page={{pacientes_list.previous_page_number}}" class="btn btnpages">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% for page in pacientes_list.paginator.page_range %}
+        <li class="{% if pacientes_list.number == page %} active {% endif %}">
+            <a class="btn btnpages" href="?page={{page}}">{{page}}</a>
+        </li>
+        {% endfor%}
+        {% if pacientes_list.has_next %}
+        <li>
+            <a href="?page={{ pacientes_list.next_page_number}}" class="btn btnpages">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+    <h1>PROBANDO EL AUTOCOMPLETE</h1>
+
+<input name="filtrarpacient" />
+</div>
+<br>
+
+<script>
+    $( function() {
+      var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+      ];
+      $('input[name="filtrarpacient"]').autocomplete({
+        source: availableTags,
+        delay: 700,
+        minlength: 3
+      });
+    } );
+    </script>
+
+{% include "views/default/footer.html" %}

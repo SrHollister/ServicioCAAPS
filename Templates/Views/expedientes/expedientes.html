@@ -1,0 +1,75 @@
+{% include "views/default/header.html" %}
+
+<h1><a class="titulos" href="#">Expedientes del Servicio</a></h1>
+<br><br>
+
+<div class="container">
+
+    <div class="form-group">
+
+        <form role="{{app_path}}" method="POST">
+            {%csrf_token%}
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="filtrarexpediente" name="filtrarexpediente" type="text" class="form-control" style="width: 100%;"
+                    placeholder="Escriba CURP del Paciente" required />
+                </div>
+                <div class="col-md-1" style="margin-right: 200px;">
+                    <input class="btn btn-primary buscar" type="submit" value="Buscar Expediente">
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'registrarexpediente' %}" class="btn btn-success">Crear Expediente</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        {% if expedientes_list %}
+        {% for expediente in expedientes_list %}
+        <div class="col-xs-6 col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <a href="detailsexped/{{expediente.Id_Exped}}">Expediente No. #{{expediente.CURP.CURP}}</a>
+                </div>
+                <div class="card-body">
+                    <h5>{{expediente.CURP.Nombre_Pac}} {{expediente.CURP.Apellidos_Pac}}</h5>
+                    <p class="card-text">{{expediente.CURP.FechaNac}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No hay Expedientes registrados con esos datos.</p>
+    <p>Favor de verificar</p>
+    <br>
+</div>
+    {% endif %}
+
+    {% if expedientes_list.has_next or expedientes_list.has_previous %}
+<ul class="pagination">
+    {% if expedientes_list.has_previous %}
+    <li>
+        <a href="?page={{expedientes_list.previous_page_number}}" class="btn btnpages">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+        </a>
+    </li>
+    {% endif %}
+    {% for page in expedientes_list.paginator.page_range %}
+    <li class="{% if expedientes_list.number == page %} active {% endif %}">
+        <a class="btn btnpages" href="?page={{page}}">{{page}}</a>
+    </li>
+    {% endfor%}
+    {% if expedientes_list.has_next %}
+    <li>
+        <a href="?page={{ expedientes_list.next_page_number}}" class="btn btnpages">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
+</div>
+<br>
+{% include "views/default/footer.html" %}

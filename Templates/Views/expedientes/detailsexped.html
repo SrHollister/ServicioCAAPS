@@ -1,0 +1,105 @@
+{% include "views/default/header.html" %}
+<h1><a class="titulos" href="{% url 'expedientes' %}">Expedientes</a>><a class="titulos" href="#">Información del
+        expediente</a></h1>
+<br>
+<h2>Datos del Paciente</h2>
+<br>
+<form action method="POST">
+    <div class="container">
+        <div class="row">
+            <table border="1" align="center">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>CURP</th>
+                </tr>
+                <tr>
+                    <td>{{expediente.CURP.Nombre_Pac}}</td>
+                    <td>{{expediente.CURP.Apellidos_Pac}}</td>
+                    <td>{{expediente.CURP.CURP}}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Peso (Kg)</th>
+                    <th>Altura (m)</th>
+                </tr>
+                <tr>
+                    <td>{{expediente.CURP.FechaNac}}</td>
+                    <td>{{expediente.CURP.Peso}}</td>
+                    <td>{{expediente.CURP.Talla}}</td>
+                </tr>
+                <tr>
+                    <th>Teléfono</th>
+                    <th>Sexo</th>
+                    <th>Estado Civil</th>
+                </tr>
+                <tr>
+                    <td>{{expediente.CURP.Telefono}}</td>
+                    <td>{{expediente.CURP.Sexo}}</td>
+                    <td>{{expediente.CURP.Id_EdoCivil.Nombre_EdoCivil}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+<br><br>
+
+<h2>Datos de domicilio</h2>
+<p>Aquí yaceran los datos del paciente y su domicilio.</p>
+<br><br>
+
+<h4 style="color: red;">Pendiente la visualización de Consultas Por Expediente</h4>
+
+<h2>Datos de Consultas</h2>
+<br>
+    
+        <!-- <table border="0">
+            <td>
+                <form role="search">
+                    <input type="search" placeholder="Escriba CURP, Tipo de Consulta o Usuario" required>
+                        <button>Buscar Consulta</button>
+                </form>
+            </td>
+            <td>
+                <form>-->
+                <a href="#" class="btn btn-success" style="float:left; margin-left: 30px;">Agregar Consulta</a>
+                <!--</form>-->
+            <!-- </td>
+        </table> -->
+    
+<br><br><br>
+<div class="container">
+    <div class="row">
+        <br><br><br>
+        {% if consultas_list %}
+        <table border="1" align="center">
+            <tr>
+                <!-- <th>Expediente</th> -->
+                <th>Folio de Consulta</th>
+                <th>Fecha de Consulta</th>
+                <th>Tipo de Consulta</th>
+                <th>Paciente</th>
+                <th>Atendido(a) por</th>
+                <th>Persona(s) que lo acompaña(n)</th>
+            </tr>
+            {% for consulta in consultas_list %}
+            <tr>
+                <!-- <td>{{consulta.Id_Exped.Id_Exped}}</td> -->
+                <td><a href="detailsconsulta/{{consulta.FolioConsulta}}">{{consulta.FolioConsulta}}</a></td>
+                <td>{{consulta.FechaConsulta}}</td>
+                <td>{{consulta.Id_TipoConsulta.Nombre_TipoConsulta}}</td>
+                <td>{{consulta.CURP.Nombre_Pac}} {{consulta.CURP.Apellidos_Pac}}</td>
+                <td>{{consulta.UserID}}</a></td>
+                <td>{{consulta.Id_Acomp.Nombre_Acomp}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <p>No hay Consultas registradas</p>
+    </div>
+    {% endif %}
+</div>
+<br><br>
+
+{% include "views/default/footer.html" %}

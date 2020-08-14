@@ -1,0 +1,56 @@
+.imglogo {
+    max-width: 150%;
+}
+.navbar-brand {
+    max-width: 15%;
+}
+.imgSlider{
+     max-width: 50%;
+}
+
+.sheetSlider{
+    background-color: white;
+    text-align: center;
+}
+
+.sh__meta span, .sh__meta h4{
+    color: blue;
+}
+
+.thumbnail{
+    max-width: 100%;
+}
+
+.card-body h5{
+    font-size: 14px;
+    max-width: 100%;
+}
+
+.card-body p{
+    text-align: justify;
+    font-size: 12px;
+}
+
+table{
+    width: 100%;
+}
+
+th, td{
+    text-align: center;
+}
+
+@media (min-width: 768px){
+    .imglogo{
+        max-width: 70%;
+    }
+}
+
+@media(max-width: 768px){
+    table{
+        width: 70%;
+    }
+}
+
+.p_about{
+    text-align: justify;
+}

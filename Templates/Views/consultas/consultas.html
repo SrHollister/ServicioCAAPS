@@ -1,0 +1,61 @@
+{% include "views/default/header.html" %}
+
+<h1><a class="titulos" href="#">Reportes</a>><a class="titulos" href="#">Consultas Registradas del Servicio</a></h1>
+<br>
+
+<div class="container">
+
+    <div class="form-group">
+
+        <form role="{{app_path}}" method="POST">
+            {%csrf_token%}
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="filtrarconsulta" name="filtrarconsulta" type="text" class="form-control" style="width: 100%;"
+                    placeholder="Escriba Tipo de Consulta" required />
+                </div>
+                <div class="col-md-1" style="margin-right: 200px;">
+                    <input class="btn btn-primary buscar" type="submit" value="Buscar Consulta">
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'registrarconsulta' %}" class="btn btn-success">Registrar Consulta</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        {% if consultas_list %}
+        <table border="1" align="center">
+            <tr>
+                <th>Expediente</th>
+                <th>Folio de Consulta</th>
+                <th>Fecha de Consulta</th>
+                <th>Tipo de Consulta</th>
+                <th>Paciente</th>
+                <th>Atendido(a) por</th>
+                <th>Persona(s) que lo acompaña(n)</th>
+            </tr>
+            {% for consulta in consultas_list %}
+            <tr>
+                <td>{{consulta.Id_Exped.Id_Exped}}</td>
+                <td><a href="detailsconsulta/{{consulta.FolioConsulta}}">{{consulta.FolioConsulta}}</a></td>
+                <td>{{consulta.FechaConsulta}}</td>
+                <td>{{consulta.Id_TipoConsulta.Nombre_TipoConsulta}}</td>
+                <td>{{consulta.CURP.Nombre_Pac}} {{consulta.CURP.Apellidos_Pac}}</td>
+                <td>{{consulta.UserID}}</a></td>
+                <td>{{consulta.Id_Acomp.Nombre_Acomp}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <p>No hay Consultas registradas con esos datos.</p>
+    <p>Favor de verificar</p>
+    <br>
+</div>
+    {% endif %}
+</div>
+<br><br>
+
+{% include "views/default/footer.html" %}

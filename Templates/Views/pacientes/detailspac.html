@@ -1,0 +1,85 @@
+{% include "views/default/header.html" %}
+
+<h1>Datos del Paciente</h1>
+<br>
+<form action method="POST">
+    <div class="container">
+        <div class="row">
+            <table border="1" align="center">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>CURP</th>
+                </tr>
+                <tr>
+                    <td>{{paciente.Nombre_Pac}}</td>
+                    <td>{{paciente.Apellidos_Pac}}</td>
+                    <td>{{paciente.CURP}}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Peso (Kg)</th>
+                    <th>Altura (m)</th>
+                </tr>
+                <tr>
+                    <td>{{paciente.FechaNac}}</td>
+                    <td>{{paciente.Peso}}</td>
+                    <td>{{paciente.Talla}}</td>
+                </tr>
+                <tr>
+                    <th>Teléfono</th>
+                    <th>Sexo</th>
+                    <th>Estado Civil</th>
+                </tr>
+                <tr>
+                    <td>{{paciente.Telefono}}</td>
+                    <td>{{paciente.Sexo}}</td>
+                    <td>{{paciente.Id_EdoCivil.Nombre_EdoCivil}}</td>
+                </tr>
+        </table>
+        </div>
+    </div>
+</form>
+<br><br>
+If para buscar domicilios registrados del paciente
+<p>No hay domicilio registrado</p>
+<p><a class="nav-link text-dark" href="{% url 'registrardomicilio' %}">¿Desea registrar domicilio?</a></p>
+Poner else
+<h2>Información de domicilio</h2>
+Fin del if
+<form action method="POST">
+    <div class="container">
+        <div class="row">
+            <table border="1" align="center">
+                <tr>
+                    <th>Calle</th>
+                    <th>Núm. Interior</th>
+                    <th>Núm. Exterior</th>
+                </tr>
+                <tr>
+                    <td>{{paciente.CURP.Calle}}</td>
+                    <td>{{paciente.CURP.NumInt}}</td>
+                    <td>{{paciente.CURP.NumExt}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Colonia</th>
+                    <th>CP</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{paciente.CURP.Colonia}}</td>
+                    <td>{{paciente.CURP.CP}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Municipio</th>
+                    <th>Estado</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{paciente.CURP.Municipio}}</td>
+                    <td>{{paciente.CURP.Estado}}</td>
+                </tr>
+        </table>
+        </div>
+    </div>
+</form>
+<h1>Siendo las 12:22 AM día 25 me he quedado con la relación PACIENTES-DOMICILIOS y el mostrar y capturar Información desde la WebApp</h1>
+{% include "views/default/footer.html" %}

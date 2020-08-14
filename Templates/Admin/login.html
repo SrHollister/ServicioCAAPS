@@ -1,0 +1,59 @@
+{% include "views/default/header.html" %}
+{% load i18n static %}
+<br><br>
+<div class="login">
+  <div id="container">
+    <div id="header" class="bg-info">
+      <h1>Inicio de Sesión de Usuarios</h1>
+    </div>
+    {% if form.errors and not form.non_field_errors %}
+    <p class="errornote text-danger">
+      {% if form.errors.items|length == 1 %}{% trans "Por favor corrija el error a continuación." %}{% else %}{% trans "Por favor corrija los siguientes errores." %}{% endif %}
+    </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="errornote text-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+    {% endif %}
+
+    <div id="content-main">
+
+      {% if user.is_authenticated %}
+      <p class="errornote text-danger">
+        {% blocktrans trimmed %}
+        Estás autenticado como {{ username }}, pero no estás autorizado para
+        acceder a esta página, ¿Deseas iniciar sesión en una cuenta diferente?
+        {% endblocktrans %}
+      </p>
+      {% endif %}
+
+      <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+        <div class="form-row">
+          {{ form.username.errors }}
+          {{ form.username.label_tag }} {{ form.username }}
+        </div>
+        <div class="form-row">
+          {{ form.password.errors }}
+          {{ form.password.label_tag }} {{ form.password }}
+          <input type="hidden" name="next" value="{{ next }}">
+        </div>
+        {% url 'admin_password_reset' as password_reset_url %}
+        {% if password_reset_url %}
+        {% endif %}
+        <div class="password-reset-link">
+          <a href="{{ password_reset_url }}">{% trans '¿Olvidaste tu usuario/contraseña?' %}</a>
+        </div>
+        <div class="submit-row">
+          <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" class="btn btn-success">
+        </div>
+      </form>
+    </div>
+    <!--<a href="#"><p style="text-align: center;">¿Olvidaste la contraseña?</p></a>-->
+  </div>
+</div>
+<br><br><br><br><br><br><br><br>
+{% include "views/default/footer.html" %}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/logo_title.png" } />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>.:: Portal del Servicio Amigable para Adolescentes ::.</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sheetslider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
+    <script src="{% static 'js/jquery-3.4.1.min.js'%}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap.bundle.js'%}" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.min.css' %}">
+    <script src="{% static 'js/jquery-ui.min.js'%}" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow" style="background-color:#0c231e;">
+            <div class="container">
+                <a class="navbar-brand">
+                    <!--<img src="{% static 'images/logo_HPcaaps.png' %}" class="imglogo" />-->
+                    <img src="{% static 'images/logo_gobiernomx.png' %}" class="imglogo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                {% if user.is_authenticated %}
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'about' %}">Acerca de</a>
+                        </li>
+                        {% if user.is_superuser %}
+                        <li class="dropdown  ng-scope open nav-item" dropdown="">
+                            <a href="#" class="dropdown-toggle text-white nav-link" dropdown-toggle="" 
+                            data-toggle="dropdown" role="button" aria-expanded="true" aria-haspopup="true">
+                                Administración
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu multi-level">
+                                <li class="dropdown-submenu ng-scope nav-item">
+                                    <a class="nav-link text-white" href="/admin"> Administración del Sistema</a>
+                                </li>
+                                <li class="dropdown-submenu ng-scope nav-item">
+                                    <a class="nav-link text-white" href="{% url 'iniciasesion' %}"> Registrar Nuevo Usuario</a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/admin/logout/">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background-color:#13322B;">
+            <div class="container">
+                <a class="navbar-brand">
+                    <!--<img src="{% static 'images/logo_HPcaaps.png' %}" class="imglogo" />-->
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".subnavbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="subnavbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'expedientes' %}">Expedientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'pacientes' %}">Listado de Pacientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'mis_consultas' %}">Mis Consultas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Receta Médica</a>
+                        </li>
+                        <li class="dropdown  ng-scope open nav-item" dropdown="">
+                            <a href="#" class="dropdown-toggle text-white nav-link" dropdown-toggle="" data-toggle="dropdown"
+                            role="button" aria-expanded="true" aria-haspopup="true">Reportes
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu multi-level">
+                                <li class="dropdown-submenu ng-scope nav-item">
+                                    <a class="nav-link text-white" href="{% url 'consultas' %}">Consultas</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+        </nav>
+        {% else %}
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/admin">Inicia Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'index' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'about' %}">Acerca de</a>
+                </li>
+            </ul>
+        </div>
+        </nav>
+        {% endif %}
+    </header>

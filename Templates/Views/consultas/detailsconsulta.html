@@ -1,0 +1,74 @@
+{% include "views/default/header.html" %}
+    <h1><a class="titulos" href="{% url 'consultas' %}">Consultas</a>><a class="titulos" href="#">Información de la Consulta</a></h1>
+<br>
+<div class="container">
+    <div class="row">
+        <table border="1" align="center">
+            <tr>
+                <th>Expediente</th>
+                <th>Folio de Consulta</th>
+                <th>Fecha de Consulta</th>
+                <th>Tipo de Consulta</th>
+                <th>Paciente</th>
+                <th>Atendido(a)</th>
+                <th>Persona(s) que lo acompaña(n)</th>
+            </tr>
+            <tr>
+                <td>{{consulta.Id_Exped.Id_Exped}}</td>
+                <td>{{consulta.FolioConsulta}}</td>
+                <td>{{consulta.FechaConsulta}}</td>
+                <td>{{consulta.Id_TipoConsulta.Nombre_TipoConsulta}}</td>
+                <td>{{consulta.CURP.Nombre_Pac}} {{consulta.CURP.Apellidos_Pac}}</td>
+                <td>{{consulta.UserID}}</a></td>
+                <td>{{consulta.Id_Acomp.Nombre_Acomp}}</td>
+            </tr>
+            <tr>
+                <th colspan="7">Antecedentes Personales No Patológicos</th>
+            </tr>
+            <tr>
+                <th>Diabéticos</th>
+                <th>Hipertensivos</th>
+                <th>Oncológicos</th>
+                <th>Neurológicos</th>
+                <th>Alérgicos</th>
+                <th>Transfuncionales</th>
+                <th>Obesidad</th>
+            </tr>
+            <tr>
+                <td>{{consulta.FolioConsulta.Diabeticos}}</td>
+                <td>{{consulta.FolioConsulta.Hipertensivos}}</td>
+                <td>{{consulta.FolioConsulta.Oncologicos}}</td>
+                <td>{{consulta.FolioConsulta.Neurologicos}}</td>
+                <td>{{consulta.FolioConsulta.Alergicos}}</td>
+                <td>{{consulta.FolioConsulta.Transfuncionales}}</td>
+                <td>{{consulta.FolioConsulta.Obesidad}}</td>
+            </tr>
+            <tr>
+                <th>ITS</th>
+                <th>SIDA</th>
+                <th>Reumáticos</th>
+                <th>Quirúrgicos</th>
+                <th>Tabaquismo</th>
+                <th>Alcoholismo</th>
+                <th>Drogadicción</th>
+            </tr>
+            <tr>
+                <td>{{consulta.FolioConsulta.ITS}}</td>
+                <td>{{consulta.FolioConsulta.SIDA}}</td>
+                <td>{{consulta.FolioConsulta.Reumaticos}}</td>
+                <td>{{consulta.FolioConsulta.Quirurgicos}}</td>
+                <td>{{consulta.FolioConsulta.Tabaquismo}}</td>
+                <td>{{consulta.FolioConsulta.Alcoholismo}}</td>
+                <td>{{consulta.FolioConsulta.Drogadiccion}}</td>
+            </tr>
+            <tr>
+                <th colspan="7">Observaciones</th>
+            </tr>
+            <tr>
+                <td colspan="7">{{consulta.FolioConsulta.Obs_Antpatheredofam}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br><br>
+{% include "views/default/footer.html" %}
